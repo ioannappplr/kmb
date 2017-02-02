@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta content="IE=9" http-equiv="X-UA-Compatible">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Kiss my button</title>
+		<meta name="title" content="Kiss my button" />
+		<meta name="description" content="Kiss my button" />
+		<link rel="icon" type="image/png" href="images/favicon.ico" />
+		<link href="./css/normalize.css" rel="stylesheet" media="all" />
+		<link href="./css/bootstrap.min.css" rel="stylesheet" media="all" />
+		<link href="./css/styles.css" rel="stylesheet" media="all" />
+		<link href="./css/custom.css" rel="stylesheet" media="all" />
+		<!--[if lt IE 9]>
+			<script src="./js/html5shiv.js" type="text/javascript"></script>
+			<script src="./js/respond.js" type="text/javascript"></script>
+		<![endif]-->
+		
+		<script type="text/javascript" src="./js/modernizr.custom.26633.js"></script>
+
+
+		<script>
+	    window.fbAsyncInit = function() {
+	        FB.init({
+	          appId      : '253691191733352',
+	          xfbml      : true,
+	          version    : 'v2.5'
+	        });
+	        FB.getLoginStatus(function(response) {
+	          if (response.status === 'connected') {
+	            $('#app-wrapper').removeClass('hidden');
+	            $('#login').addClass('hidden');
+	            getInfo();
+	          }
+	        });
+	    };
+	    (function(d, s, id){
+	        var js, fjs = d.getElementsByTagName(s)[0];
+	        if (d.getElementById(id)) {return;}
+	        js = d.createElement(s); js.id = id;
+	        js.src = "//connect.facebook.net/en_US/sdk.js";
+	        fjs.parentNode.insertBefore(js, fjs);
+	    }(document, 'script', 'facebook-jssdk'));
+	    
+	    function login() {
+	      FB.login(function(response) {
+	        if (response.status === 'connected') {
+	            $('#app-wrapper').removeClass('hidden');
+	            $('#login').addClass('hidden');
+	            getInfo();
+	          }
+	      }, {scope: 'email'});
+	    }
+
+	    function logout() {
+	    	FB.logout(function(response) {
+	            $('#login').removeClass('hidden');
+	            $('#app-wrapper').addClass('hidden');
+			});
+	    }
+	    
+	    function getInfo() {
+	      FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,picture.width(150).height(150),cover'}, function(response) {
+	        $('#coverArea').html('<img src="' + response.cover.source + '" class="cover_photo" alt="Kiss my button" />');
+	        $('.profile_photo .col-xs-12').html('<img src="' + response.picture.data.url + '" alt="' + response.name + '" /><span class="name">' + response.name + '</span>');
+	        $('.hi_area').html('Hi ' + response.first_name);
+	        $('.letters').html(response.first_name.slice(0,1) + response.last_name.slice(0,1));
+	      });
+	    }
+	  </script>
+	</head>
+	
+	<body>
+
+
+  		<button onclick="login()" id="login">Login with Facebook</button>
+
+		<div class="hidden" id="app-wrapper">
+			<div class="container-fluid">
+				
+				<div class="app-header clearfix">
+
+					<div class="row relative">
+						<span id="coverArea"><img src="./images/cover.jpg" class="cover_photo" alt="Kiss my button" /></span>
+					
+						<div class="blue_bg">
+							<div class="desk_row">
+								<div class="container">
+									<div class="row">
+										<div class="col-xs-12 text-right">
+											<a data-toggle="dropdown" id="dropdownLink" aria-haspopup="true" aria-expanded="true" href="#"><span class="letters hidden-xs">LC</span> <span class="hi_area hidden-xs">Hi lara</span> <span class="icon-dropdown-arrow hidden-xs"></span><span class="icon-menu15x visible-xs"></span><span class="icon-menu-close15x visible-xs"></span></a>
+											<nav class="dropdown-menu pull-right" aria-labelledby="dropdownLink">
+												<ul>
+													<li class="visible-xs"><a href="">Home</a></li>
+													<li><a href="javascript:void(0)">Settings</a></li>
+													<li><a onclick="logout()" href="javascript:void(0)">Logout</a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="profile_photo">
+								<div class="container">
+									<div class="row">
+										<div class="col-xs-12">
+											<img src="./images/profile-image.jpg" alt="Lara Croft" />
+											<span class="name">Lara Croft</span>					
+										</div>					
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- end of app-header -->
+
+				<div class="app-container" ng-app="MyApp" ng-controller="PostsCtrl">
+
+					<div ng-view></div>
+
+				</div>
+				<!-- end of app-container -->
+
+				<div class="app-footer container">
+					<div class="row">
+						<div class="col-sm-4 col-xs-12">
+							Copyright Creative Workers
+						</div>
+						<div class="col-sm-4 col-xs-12 text-center">
+							<a href="http://google.com" target="_blank">Privacy</a> <a href="http://google.com" target="_blank">Terms</a> <a  href="http://google.com" target="_blank">Cookies</a> <a href="http://google.com" target="_blank">More</a>
+						</div>
+						<div class="col-sm-4 col-xs-12 text-right">
+							Kissmybutton &copy; 2017
+						</div>
+					</div>				
+				</div>
+				<!-- end of app-footer -->
+
+			</div>
+		</div>
+
+		<script src="./js/jquery.js" type="text/javascript"></script>
+		<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="./js/custom.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.min.js"></script>
+		<script src="js/dirPagination.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 sort_options">
+								<a href="javascript:history.back()">Back to channels</a>		
+							</div>
+						</div>
+					</div>
+
+					<div class="white_bg">
+						<div class="container">
+							<div class="row" ng-controller="SourceCtrl">
+
+								<div class="col-xs-12">
+									<h2>{{parentTitle}}</h2>	
+									<div class="results">
+										<div class="row">
+											<div class="col-xs-12" ng-repeat="new in news">
+												<div class="app_item row">
+														<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">											
+															<div class="image">
+																<img src="{{new.urlToImage}}" alt="{{new.title}}" />
+															</div>
+														</div>
+
+														<div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+															<div class="details">
+																<h4><a href="{{new.url}}" target="_blank">{{new.title}}</a></h4>
+																<p>{{new.description}}</p>
+																<p class="tags">{{new.publishedAt}}</p>
+																<p class="tags"><img src="images/link.png" alt="Link icon" /> <a href="{{new.url}}" target="_blank">{{new.url}}</a></p>
+															</div> <!-- end of details -->
+														</div>
+
+
+												</div>
+												<!-- end of app-item -->
+
+											</div>
+										</div>
+
+									</div>
+									<!-- end of results -->
+
+								</div>
+							</div>
+						</div>
+					</div>
